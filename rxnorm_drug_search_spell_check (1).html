@@ -1,0 +1,1323 @@
+<!-- ... existing code ... -->
+    <title>RxNorm ค้นหายาแสนรู้ ✨ | Kawaii Drug Search & Spell Check</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Mali (cute rounded Thai), Nunito (bouncy rounded English), JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700&family=Mali:wght@400;500;600;700&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Mali', 'Nunito', 'sans-serif'],
+                        display: ['Nunito', 'Mali', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        kawaii: {
+                            pink: '#FF85A1',
+                            pinkLight: '#FFF0F5',
+                            pinkBorder: '#FCE7F3',
+                            mint: '#5EEAD4',
+                            mintDark: '#0D9488',
+                            mintLight: '#F0FDF9',
+                            lavender: '#C4B5FD',
+                            lavenderLight: '#F5F3FF',
+                            peach: '#FDBA74',
+                            peachLight: '#FFF7ED',
+                            cream: '#FFFDFB',
+                            text: '#4A3F55',
+                            subtext: '#7E728A'
+                        }
+                    },
+                    boxShadow: {
+                        'kawaii': '0 10px 25px -5px rgba(244, 114, 182, 0.15), 0 4px 10px -4px rgba(167, 139, 250, 0.1)',
+                        'kawaii-hover': '0 16px 32px -6px rgba(244, 114, 182, 0.25), 0 6px 14px -4px rgba(94, 234, 212, 0.2)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Mali', 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #FFF5F7 0%, #FFFDFB 35%, #F0FDF9 70%, #F5F3FF 100%);
+            background-size: 200% 200%;
+            animation: gradientShift 16s ease infinite;
+            background-attachment: fixed;
+            color: #4A3F55;
+        }
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        /* Custom pastel scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FFF5F7;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #FBCFE8;
+            border-radius: 9999px;
+            border: 2px solid #FFF5F7;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #F472B6;
+        }
+        .fade-in {
+            animation: fadeIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-16px) rotate(8deg); }
+        }
+        @keyframes floatReverse {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(14px) rotate(-8deg); }
+        }
+        @keyframes driftCloudRight {
+            0% { transform: translateX(-20vw); }
+            100% { transform: translateX(120vw); }
+        }
+        @keyframes driftCloudLeft {
+            0% { transform: translateX(120vw); }
+            100% { transform: translateX(-25vw); }
+        }
+        @keyframes twinkleStar {
+            0%, 100% { opacity: 0.25; transform: scale(0.8) rotate(0deg); }
+            50% { opacity: 0.95; transform: scale(1.25) rotate(18deg); }
+        }
+        @keyframes bouncePill {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        /* Walking Mascot Animations */
+        @keyframes mascotWalkBob {
+            0%, 100% { transform: translateY(0px) rotate(-2deg); }
+            50% { transform: translateY(-5px) rotate(2deg); }
+        }
+        @keyframes mascotLegLeft {
+            0%, 100% { transform: rotate(-22deg); }
+            50% { transform: rotate(22deg); }
+        }
+        @keyframes mascotLegRight {
+            0%, 100% { transform: rotate(22deg); }
+            50% { transform: rotate(-22deg); }
+        }
+        @keyframes mascotArmLeft {
+            0%, 100% { transform: rotate(24deg); }
+            50% { transform: rotate(-24deg); }
+        }
+        @keyframes mascotArmRight {
+            0%, 100% { transform: rotate(-24deg); }
+            50% { transform: rotate(24deg); }
+        }
+        @keyframes mascotBlink {
+            0%, 92%, 96%, 100% { transform: scaleY(1); }
+            94%, 98% { transform: scaleY(0.1); }
+        }
+        .animate-float-slow {
+            animation: floatSlow 6s ease-in-out infinite;
+        }
+        .animate-float-reverse {
+            animation: floatReverse 7s ease-in-out infinite;
+        }
+        .animate-cloud-1 {
+            animation: driftCloudRight 42s linear infinite;
+        }
+        .animate-cloud-2 {
+            animation: driftCloudLeft 54s linear infinite;
+        }
+        .animate-cloud-3 {
+            animation: driftCloudRight 65s linear infinite 12s;
+        }
+        .animate-twinkle-1 {
+            animation: twinkleStar 3.2s ease-in-out infinite;
+        }
+        .animate-twinkle-2 {
+            animation: twinkleStar 4.1s ease-in-out infinite 1.2s;
+        }
+        .animate-twinkle-3 {
+            animation: twinkleStar 3.6s ease-in-out infinite 2.1s;
+        }
+        .animate-pill-1 { animation: bouncePill 0.9s infinite ease-in-out; }
+        .animate-pill-2 { animation: bouncePill 0.9s infinite ease-in-out 0.15s; }
+        .animate-pill-3 { animation: bouncePill 0.9s infinite ease-in-out 0.3s; }
+
+        .mascot-bobbing {
+            animation: mascotWalkBob 0.55s ease-in-out infinite;
+        }
+        .mascot-leg-l {
+            transform-origin: 33px 68px;
+            animation: mascotLegLeft 0.55s ease-in-out infinite;
+        }
+        .mascot-leg-r {
+            transform-origin: 47px 68px;
+            animation: mascotLegRight 0.55s ease-in-out infinite;
+        }
+        .mascot-arm-l {
+            transform-origin: 22px 46px;
+            animation: mascotArmLeft 0.55s ease-in-out infinite;
+        }
+        .mascot-arm-r {
+            transform-origin: 58px 46px;
+            animation: mascotArmRight 0.55s ease-in-out infinite;
+        }
+        .mascot-eyes {
+            transform-origin: 40px 36px;
+            animation: mascotBlink 4.5s infinite;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col relative overflow-x-hidden">
+
+    <!-- Animated Dreamy Pastel Background Layer -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden z-0" aria-hidden="true">
+        <!-- Drifting Fluffy Cloud 1 (Top) -->
+        <svg class="w-44 h-24 absolute top-16 left-0 opacity-75 animate-cloud-1" viewBox="0 0 180 90" fill="none">
+            <path d="M40 72H142C157.464 72 170 59.464 170 44C170 29.36 158.765 17.345 144.442 16.105C138.943 6.505 128.606 0 116.75 0C102.313 0 90.132 9.616 86.212 22.801C81.896 20.382 76.918 19 71.625 19C56.256 19 43.541 30.402 41.529 45.217C27.283 46.535 16 58.48 16 73.042C16 72.695 26.745 72 40 72Z" fill="#FFFFFF"/>
+        </svg>
+
+        <!-- Drifting Fluffy Cloud 2 (Middle) -->
+        <svg class="w-52 h-28 absolute top-[42%] left-0 opacity-65 animate-cloud-2" viewBox="0 0 180 90" fill="none">
+            <path d="M40 72H142C157.464 72 170 59.464 170 44C170 29.36 158.765 17.345 144.442 16.105C138.943 6.505 128.606 0 116.75 0C102.313 0 90.132 9.616 86.212 22.801C81.896 20.382 76.918 19 71.625 19C56.256 19 43.541 30.402 41.529 45.217C27.283 46.535 16 58.48 16 73.042C16 72.695 26.745 72 40 72Z" fill="#FCE7F3"/>
+        </svg>
+
+        <!-- Drifting Fluffy Cloud 3 (Lower) -->
+        <svg class="w-40 h-20 absolute bottom-32 left-0 opacity-70 animate-cloud-3" viewBox="0 0 180 90" fill="none">
+            <path d="M40 72H142C157.464 72 170 59.464 170 44C170 29.36 158.765 17.345 144.442 16.105C138.943 6.505 128.606 0 116.75 0C102.313 0 90.132 9.616 86.212 22.801C81.896 20.382 76.918 19 71.625 19C56.256 19 43.541 30.402 41.529 45.217C27.283 46.535 16 58.48 16 73.042C16 72.695 26.745 72 40 72Z" fill="#CCFBF1"/>
+        </svg>
+
+        <!-- Top Left Pastel Capsule -->
+        <svg class="w-16 h-16 absolute top-24 left-[6%] animate-float-slow opacity-75" viewBox="0 0 64 64" fill="none">
+            <g transform="rotate(-30 32 32)">
+                <rect x="16" y="8" width="32" height="48" rx="16" fill="#FBCFE8"/>
+                <path d="M16 32H48V40C48 48.8366 40.8366 56 32 56C23.1634 56 16 48.8366 16 40V32Z" fill="#A7F3D0"/>
+                <circle cx="24" cy="18" r="2.5" fill="white" opacity="0.85"/>
+            </g>
+        </svg>
+
+        <!-- Top Right Twinkling Star & Heart -->
+        <svg class="w-12 h-12 absolute top-28 right-[8%] animate-twinkle-1" viewBox="0 0 64 64" fill="none">
+            <path d="M32 8L36.5 23.5L52 28L36.5 32.5L32 48L27.5 32.5L12 28L27.5 23.5L32 8Z" fill="#C4B5FD"/>
+            <circle cx="50" cy="14" r="3" fill="#F472B6"/>
+        </svg>
+
+        <!-- Mid-Left Twinkling Sparkle -->
+        <svg class="w-9 h-9 absolute top-[48%] left-[4%] animate-twinkle-2" viewBox="0 0 64 64" fill="none">
+            <path d="M32 6L36 26L56 30L36 34L32 54L28 34L8 30L28 26L32 6Z" fill="#F9A8D4"/>
+        </svg>
+
+        <!-- Mid-Right Floating Heart -->
+        <svg class="w-12 h-12 absolute top-[55%] right-[5%] animate-float-slow opacity-70" viewBox="0 0 64 64" fill="none">
+            <path d="M32 52C32 52 10 38.5 10 23.5C10 16.5 15.5 11 22 11C26.2 11 29.8 13.2 32 16.5C34.2 13.2 37.8 11 42 11C48.5 11 54 16.5 54 23.5C54 38.5 32 52 32 52Z" fill="#FBCFE8"/>
+        </svg>
+
+        <!-- Bottom Left Soft Peach Heart -->
+        <svg class="w-16 h-16 absolute bottom-28 left-[5%] animate-float-reverse opacity-70" viewBox="0 0 64 64" fill="none">
+            <path d="M32 52C32 52 10 38.5 10 23.5C10 16.5 15.5 11 22 11C26.2 11 29.8 13.2 32 16.5C34.2 13.2 37.8 11 42 11C48.5 11 54 16.5 54 23.5C54 38.5 32 52 32 52Z" fill="#FED7AA"/>
+        </svg>
+
+        <!-- Bottom Right Lavender/Yellow Capsule -->
+        <svg class="w-16 h-16 absolute bottom-32 right-[7%] animate-float-slow opacity-75" viewBox="0 0 64 64" fill="none">
+            <g transform="rotate(35 32 32)">
+                <rect x="18" y="10" width="28" height="44" rx="14" fill="#DDD6FE"/>
+                <path d="M18 32H46V40C46 47.732 39.732 54 32 54C24.268 54 18 47.732 18 40V32Z" fill="#FDE68A"/>
+            </g>
+        </svg>
+
+        <!-- Extra Twinkling Star Bottom Center-Right -->
+        <svg class="w-8 h-8 absolute bottom-24 right-[24%] animate-twinkle-3" viewBox="0 0 64 64" fill="none">
+            <path d="M32 8L36.5 23.5L52 28L36.5 32.5L32 48L27.5 32.5L12 28L27.5 23.5L32 8Z" fill="#5EEAD4"/>
+        </svg>
+    </div>
+
+    <!-- Top Navigation Bar -->
+    <header class="bg-white/85 backdrop-blur-md border-b-2 border-pink-100 sticky top-0 z-30 shadow-xs">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-2">
+            <div class="flex items-center gap-3.5 min-w-0">
+                <!-- Cute Mascot Avatar: Dr. Pill-chan SVG -->
+                <div class="w-13 h-13 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-pink-100 via-rose-50 to-teal-100 p-1 border-2 border-pink-200 shadow-sm flex items-center justify-center shrink-0 hover:scale-105 transition-transform">
+                    <svg class="w-11 h-11" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Pharmacist Cap -->
+                        <path d="M24 22L28 11H52L56 22H24Z" fill="#FFFFFF" stroke="#F472B6" stroke-width="2.5" stroke-linejoin="round"/>
+                        <path d="M40 13.5V19.5M37 16.5H43" stroke="#FB7185" stroke-width="2.5" stroke-linecap="round"/>
+                        <!-- Pill Body Top (Pastel Pink) -->
+                        <path d="M22 38C22 28.0589 30.0589 20 40 20C49.9411 20 58 28.0589 58 38V42H22V38Z" fill="#FF9EBB" stroke="#EC4899" stroke-width="2.5"/>
+                        <!-- Pill Body Bottom (Pastel Mint) -->
+                        <path d="M22 42H58V54C58 63.9411 49.9411 72 40 72C30.0589 72 22 63.9411 22 54V42Z" fill="#99F6E4" stroke="#14B8A6" stroke-width="2.5"/>
+                        <!-- Glossy Shine -->
+                        <path d="M28 29C29.5 26 32 24.5 35 24" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+                        <!-- Cute Eyes -->
+                        <circle cx="33" cy="36" r="2.8" fill="#4A3F55"/>
+                        <circle cx="47" cy="36" r="2.8" fill="#4A3F55"/>
+                        <circle cx="32.2" cy="35" r="1" fill="#FFFFFF"/>
+                        <circle cx="46.2" cy="35" r="1" fill="#FFFFFF"/>
+                        <!-- Rosy Cheeks -->
+                        <ellipse cx="28.5" cy="40" rx="3" ry="1.8" fill="#F43F5E" opacity="0.45"/>
+                        <ellipse cx="51.5" cy="40" rx="3" ry="1.8" fill="#F43F5E" opacity="0.45"/>
+                        <!-- Happy Smile -->
+                        <path d="M36.5 39.5C37.5 41.5 42.5 41.5 43.5 39.5" stroke="#4A3F55" stroke-width="2.2" stroke-linecap="round"/>
+                        <!-- Little Waving Arms -->
+                        <path d="M21 46C16 44 14 40 16 37" stroke="#EC4899" stroke-width="2.5" stroke-linecap="round"/>
+                        <path d="M59 46C64 48 66 52 63 55" stroke="#14B8A6" stroke-width="2.5" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <div class="min-w-0">
+                    <div class="flex items-center gap-2">
+                        <h1 class="text-base sm:text-xl font-bold bg-gradient-to-r from-pink-500 via-purple-500 to-teal-500 bg-clip-text text-transparent leading-tight truncate">
+                            RxNorm ค้นหายาแสนรู้ ✨
+                        </h1>
+                        <span class="hidden md:inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-pink-100 text-pink-600 border border-pink-200 shrink-0">
+                            Kawaii Pharmacy 💕
+                        </span>
+                    </div>
+                    <p class="text-xs text-kawaii-subtext mt-0.5 truncate">
+                        ผู้ช่วยเช็กชื่อยาและแนะนำคำสะกดที่ถูกต้อง โดยน้องยา (Dr. Pill-chan) 💊
+                    </p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2 shrink-0">
+                <!-- Toggle Walking Mascot Button -->
+                <button
+                    id="toggleMascotBtn"
+                    type="button"
+                    title="เปิด/ปิด มาสคอตน้องยาเดินเล่น"
+                    class="flex items-center gap-1.5 text-xs font-bold text-pink-600 bg-pink-50 hover:bg-pink-100 px-3 py-2 rounded-full border-2 border-pink-200 shadow-2xs transition-all active:scale-95 cursor-pointer"
+                >
+                    <span>💊</span>
+                    <span id="toggleMascotText" class="hidden sm:inline">น้องยาเดินเล่น: เปิด</span>
+                    <span id="toggleMascotTextMobile" class="sm:hidden">เปิด</span>
+                </button>
+                <div class="flex items-center gap-2 text-xs font-semibold text-teal-700 bg-teal-50 px-3.5 py-2 rounded-full border-2 border-teal-200/80 shadow-2xs">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+                    <span class="hidden md:inline">NLM RxNorm API</span>
+                    <span class="md:hidden">RxNorm</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="relative z-10 flex-grow max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
+        
+        <!-- Hero & Search Box Section -->
+        <section class="bg-white/95 backdrop-blur-xs rounded-3xl shadow-kawaii border-2 border-pink-100 p-6 sm:p-9 mb-8 relative overflow-hidden">
+            <!-- Soft Pastel Corner Blobs -->
+            <div class="absolute -top-20 -right-20 w-56 h-56 bg-pink-100/60 rounded-full blur-2xl pointer-events-none"></div>
+            <div class="absolute -bottom-20 -left-20 w-56 h-56 bg-teal-100/60 rounded-full blur-2xl pointer-events-none"></div>
+
+            <div class="relative z-10 max-w-3xl mx-auto text-center">
+                <span class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-bold bg-gradient-to-r from-pink-50 to-purple-50 text-pink-600 border border-pink-200 mb-3 shadow-2xs">
+                    <span>✨ Smart Drug & Spelling Helper</span>
+                    <span>•</span>
+                    <span>พิมพ์ผิดก็หาเจอ! 🪄</span>
+                </span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-kawaii-text mb-2">
+                    อยากค้นหาน้องยาตัวไหน พิมพ์ได้เลยน้า~ 💊
+                </h2>
+                <p class="text-sm sm:text-base text-kawaii-subtext mb-6">
+                    พิมพ์ชื่อสามัญทางยา (Generic) หรือชื่อการค้า (Brand Name) เป็นภาษาอังกฤษ ระบบจะช่วยแนะนำคำที่ถูกต้องให้ทันที 💖
+                </p>
+
+                <!-- Bubbly Pill Search Input Container -->
+                <div class="relative group">
+                    <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none text-pink-400 group-focus-within:text-pink-500 transition-colors">
+                        <i data-lucide="search" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+                    </div>
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        autocomplete="off"
+                        spellcheck="false"
+                        placeholder="ลองพิมพ์ชื่อยา เช่น Amoxicillin, Ibuprofn, Metformn..." 
+                        class="w-full pl-14 pr-36 sm:pr-40 py-4 text-base sm:text-lg bg-pink-50/40 border-2 border-pink-200 rounded-full text-kawaii-text placeholder-pink-300 focus:outline-none focus:bg-white focus:border-pink-400 focus:ring-4 focus:ring-pink-200/50 transition-all shadow-sm"
+                    >
+                    <div class="absolute inset-y-0 right-2 flex items-center gap-1.5">
+                        <!-- Clear Button -->
+                        <button 
+                            id="clearBtn" 
+                            type="button" 
+                            title="ล้างคำค้นหา"
+                            class="hidden w-9 h-9 flex items-center justify-center text-pink-400 hover:text-pink-600 hover:bg-pink-100 rounded-full transition-colors font-bold text-lg"
+                        >
+                            ×
+                        </button>
+                        <!-- Bouncy Gradient Search Button -->
+                        <button 
+                            id="searchBtn" 
+                            type="button"
+                            class="px-5 py-2.5 bg-gradient-to-r from-pink-400 via-rose-400 to-purple-400 hover:from-pink-500 hover:to-purple-500 active:scale-95 text-white font-bold text-sm rounded-full shadow-md shadow-pink-300/40 transition-all flex items-center gap-1.5 cursor-pointer"
+                        >
+                            <span>ค้นหาเลย!</span>
+                            <span>🔍</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Sample Drug Quick Chips (Pastel Candies) -->
+                <div class="mt-5 flex flex-wrap items-center justify-center gap-2 text-xs sm:text-sm">
+                    <span class="text-kawaii-subtext font-semibold mr-1">🍬 ลองกดตัวอย่าง:</span>
+                    <button type="button" data-sample="Amoxicilin" class="sample-chip px-3.5 py-1.5 rounded-full bg-pink-50 hover:bg-pink-100 text-pink-700 border-2 border-pink-200 hover:-translate-y-0.5 transition-all flex items-center gap-1.5 shadow-2xs cursor-pointer">
+                        <span class="font-mono font-semibold">Amoxicilin</span>
+                        <span class="text-[11px] bg-pink-200/80 px-2 py-0.5 rounded-full text-pink-800 font-bold">พิมพ์ผิด</span>
+                    </button>
+                    <button type="button" data-sample="Ibuprofn" class="sample-chip px-3.5 py-1.5 rounded-full bg-amber-50 hover:bg-amber-100 text-amber-800 border-2 border-amber-200 hover:-translate-y-0.5 transition-all flex items-center gap-1.5 shadow-2xs cursor-pointer">
+                        <span class="font-mono font-semibold">Ibuprofn</span>
+                        <span class="text-[11px] bg-amber-200/80 px-2 py-0.5 rounded-full text-amber-900 font-bold">พิมพ์ผิด</span>
+                    </button>
+                    <button type="button" data-sample="Metformn" class="sample-chip px-3.5 py-1.5 rounded-full bg-purple-50 hover:bg-purple-100 text-purple-700 border-2 border-purple-200 hover:-translate-y-0.5 transition-all flex items-center gap-1.5 shadow-2xs cursor-pointer">
+                        <span class="font-mono font-semibold">Metformn</span>
+                        <span class="text-[11px] bg-purple-200/80 px-2 py-0.5 rounded-full text-purple-800 font-bold">พิมพ์ผิด</span>
+                    </button>
+                    <button type="button" data-sample="Atorvasttin" class="sample-chip px-3.5 py-1.5 rounded-full bg-rose-50 hover:bg-rose-100 text-rose-700 border-2 border-rose-200 hover:-translate-y-0.5 transition-all flex items-center gap-1.5 shadow-2xs cursor-pointer">
+                        <span class="font-mono font-semibold">Atorvasttin</span>
+                        <span class="text-[11px] bg-rose-200/80 px-2 py-0.5 rounded-full text-rose-800 font-bold">พิมพ์ผิด</span>
+                    </button>
+                    <button type="button" data-sample="Paracetmol" class="sample-chip px-3.5 py-1.5 rounded-full bg-teal-50 hover:bg-teal-100 text-teal-700 border-2 border-teal-200 hover:-translate-y-0.5 transition-all flex items-center gap-1.5 shadow-2xs cursor-pointer">
+                        <span class="font-mono font-semibold">Paracetmol</span>
+                        <span class="text-[11px] bg-teal-200/80 px-2 py-0.5 rounded-full text-teal-800 font-bold">พิมพ์ผิด</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cute Bouncing Pills Loading State -->
+        <div id="loadingState" class="hidden py-14 flex flex-col items-center justify-center text-center fade-in">
+            <div class="flex items-center gap-3 mb-4">
+                <!-- Pill 1 -->
+                <div class="w-6 h-10 rounded-full bg-gradient-to-b from-pink-400 to-pink-200 border-2 border-pink-400 animate-pill-1 shadow-sm"></div>
+                <!-- Pill 2 -->
+                <div class="w-6 h-10 rounded-full bg-gradient-to-b from-teal-400 to-teal-200 border-2 border-teal-400 animate-pill-2 shadow-sm"></div>
+                <!-- Pill 3 -->
+                <div class="w-6 h-10 rounded-full bg-gradient-to-b from-purple-400 to-purple-200 border-2 border-purple-400 animate-pill-3 shadow-sm"></div>
+            </div>
+            <p class="text-kawaii-text font-bold text-base">กำลังค้นหาน้องยาให้อยู่น้า... 💊✨</p>
+            <p class="text-xs text-kawaii-subtext mt-1">น้องยากำลังเช็กตัวสะกดและรหัส RxCUI จากฐานข้อมูล NLM ให้อยู่จ้า</p>
+        </div>
+
+        <!-- Cute Error State -->
+        <div id="errorState" class="hidden bg-rose-50 border-2 border-rose-200 rounded-3xl p-7 text-center max-w-2xl mx-auto mb-8 shadow-kawaii fade-in">
+            <div class="w-14 h-14 bg-rose-100 text-rose-500 rounded-full flex items-center justify-center mx-auto mb-3 text-2xl border-2 border-rose-200">
+                🥺
+            </div>
+            <h3 class="text-base font-bold text-rose-900 mb-1">อุ๊ย! เชื่อมต่อฐานข้อมูลไม่ได้ชั่วคราว</h3>
+            <p id="errorMessage" class="text-sm text-rose-700 mb-4">ไม่สามารถดึงข้อมูลจาก RxNorm API ได้ในขณะนี้ ลองตรวจสอบอินเทอร์เน็ตแล้วกดลองใหม่อีกครั้งนะ</p>
+            <button id="retryBtn" type="button" class="px-5 py-2.5 bg-rose-400 hover:bg-rose-500 text-white text-sm font-bold rounded-full shadow-sm transition-all active:scale-95 cursor-pointer">
+                ลองใหม่อีกครั้ง 🔄
+            </button>
+        </div>
+
+        <!-- Results Container -->
+        <div id="resultsContainer" class="hidden space-y-6 fade-in">
+            
+            <!-- Did You Mean / Spelling Suggestions Banner -->
+            <div id="spellingBanner" class="hidden bg-gradient-to-r from-amber-50 via-orange-50 to-yellow-50 border-2 border-amber-200 rounded-3xl p-5 sm:p-6 shadow-kawaii">
+                <div class="flex flex-col sm:flex-row sm:items-center gap-3.5">
+                    <div class="flex items-center gap-3 text-amber-800 font-bold shrink-0">
+                        <div class="w-10 h-10 rounded-2xl bg-amber-100 border-2 border-amber-200 flex items-center justify-center text-xl shadow-2xs">
+                            💡
+                        </div>
+                        <span>เอ๊ะ! คุณหมายถึงคำนี้หรือเปล่า? :</span>
+                    </div>
+                    <div id="spellingChips" class="flex flex-wrap gap-2">
+                        <!-- Suggestion chips injected here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Results Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                
+                <!-- Left Column: Exact / Grouped Drugs from drugs.json (7 cols) -->
+                <div class="lg:col-span-7 space-y-4">
+                    <div class="bg-white/95 rounded-3xl border-2 border-pink-100 shadow-kawaii overflow-hidden">
+                        <div class="px-6 py-4 border-b-2 border-pink-100 bg-gradient-to-r from-pink-50/80 to-purple-50/60 flex items-center justify-between">
+                            <div class="flex items-center gap-2.5">
+                                <span class="text-lg">💊</span>
+                                <h3 class="font-bold text-kawaii-text">รายการยาที่ตรงกับคำค้นหา</h3>
+                            </div>
+                            <span id="exactCountBadge" class="text-xs font-bold px-3 py-1 rounded-full bg-pink-100 text-pink-700 border border-pink-200">0 รายการ</span>
+                        </div>
+                        
+                        <div id="exactDrugsList" class="p-5 sm:p-6 space-y-5">
+                            <!-- Grouped drug cards injected here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Approximate Matches & Similarity Scores (5 cols) -->
+                <div class="lg:col-span-5 space-y-4">
+                    <div class="bg-white/95 rounded-3xl border-2 border-teal-100 shadow-kawaii overflow-hidden">
+                        <div class="px-6 py-4 border-b-2 border-teal-100 bg-gradient-to-r from-teal-50/80 to-sky-50/60 flex items-center justify-between">
+                            <div class="flex items-center gap-2.5">
+                                <span class="text-lg">✨</span>
+                                <h3 class="font-bold text-kawaii-text">คำที่ใกล้เคียง (Approximate)</h3>
+                            </div>
+                            <span id="approxCountBadge" class="text-xs font-bold px-3 py-1 rounded-full bg-teal-100 text-teal-800 border border-teal-200">0 รายการ</span>
+                        </div>
+                        <div class="px-6 py-2.5 bg-teal-50/40 border-b border-teal-100 text-xs text-kawaii-subtext font-medium">
+                            จัดอันดับความคล้ายคลึงพร้อมแถบหัวใจความแม่นยำ 💖
+                        </div>
+                        <div id="approxDrugsList" class="divide-y divide-teal-100/70 max-h-[620px] overflow-y-auto">
+                            <!-- Approximate match items injected here -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Cute Empty Initial State -->
+        <div id="initialState" class="text-center py-10 px-4">
+            <div class="max-w-md mx-auto bg-white/80 backdrop-blur-xs rounded-3xl p-8 border-2 border-dashed border-pink-200 shadow-kawaii">
+                <!-- Cute Sleeping/Waiting Pill Illustration -->
+                <div class="w-20 h-20 bg-gradient-to-br from-pink-100 to-teal-100 rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-pink-200 shadow-inner">
+                    <svg class="w-12 h-12" viewBox="0 0 64 64" fill="none">
+                        <rect x="14" y="20" width="36" height="24" rx="12" fill="#FF9EBB" stroke="#EC4899" stroke-width="2.5"/>
+                        <path d="M32 20H38C44.6274 20 50 25.3726 50 32C50 38.6274 44.6274 44 38 44H32V20Z" fill="#99F6E4" stroke="#14B8A6" stroke-width="2.5"/>
+                        <circle cx="24" cy="30" r="2" fill="#4A3F55"/>
+                        <circle cx="40" cy="30" r="2" fill="#4A3F55"/>
+                        <path d="M29 35C30.5 37 33.5 37 35 35" stroke="#4A3F55" stroke-width="2" stroke-linecap="round"/>
+                        <circle cx="20" cy="34" r="2.2" fill="#F43F5E" opacity="0.4"/>
+                        <circle cx="44" cy="34" r="2.2" fill="#F43F5E" opacity="0.4"/>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-bold text-kawaii-text mb-1.5">น้องยาพร้อมช่วยค้นหาแล้วจ้า! 🌟</h3>
+                <p class="text-sm text-kawaii-subtext leading-relaxed">
+                    พิมพ์ชื่อยาที่ต้องการค้นหาในช่องด้านบน หรือลองคลิกปุ่มลูกอมตัวอย่างเพื่อทดสอบระบบแนะนำการสะกดคำได้เลยน้า 💕
+                </p>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Cute Kawaii Drug Details Modal -->
+    <div id="drugModal" class="fixed inset-0 z-50 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <!-- Soft Pastel Backdrop -->
+        <div id="modalBackdrop" class="fixed inset-0 bg-purple-950/35 backdrop-blur-sm transition-opacity"></div>
+
+        <!-- Modal Panel -->
+        <div class="fixed inset-0 z-10 overflow-y-auto">
+            <div class="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
+                <div class="relative transform overflow-hidden rounded-3xl bg-white text-left shadow-2xl transition-all sm:my-8 w-full max-w-2xl border-2 border-pink-200">
+                    
+                    <!-- Cute Pastel Modal Header -->
+                    <div class="bg-gradient-to-r from-pink-400 via-purple-400 to-teal-400 px-6 py-5 text-white flex items-start justify-between gap-4">
+                        <div>
+                            <div class="flex flex-wrap items-center gap-2 mb-1.5">
+                                <span id="modalTtyBadge" class="px-3 py-0.5 text-xs font-bold rounded-full bg-white/25 text-white backdrop-blur-xs border border-white/30">TTY</span>
+                                <span class="text-xs text-white/95 font-mono bg-black/15 px-2.5 py-0.5 rounded-full flex items-center gap-1">
+                                    RxCUI: <strong id="modalRxcui" class="text-white">-</strong>
+                                </span>
+                            </div>
+                            <h3 id="modalDrugName" class="text-lg sm:text-xl font-bold leading-snug font-mono drop-shadow-2xs">
+                                Drug Name
+                            </h3>
+                        </div>
+                        <button id="closeModalBtn" type="button" class="rounded-full p-2 text-white/90 hover:text-white hover:bg-white/20 transition-colors cursor-pointer">
+                            <i data-lucide="x" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+
+                    <!-- Quick Copy Bar -->
+                    <div class="bg-pink-50/60 px-6 py-3 border-b border-pink-100 flex flex-wrap items-center justify-between gap-2">
+                        <span class="text-xs font-semibold text-kawaii-subtext">📋 คัดลอกข้อมูลด่วน:</span>
+                        <div class="flex items-center gap-2">
+                            <button id="copyNameBtn" type="button" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-bold bg-white hover:bg-pink-50 text-pink-700 border-2 border-pink-200 rounded-full shadow-2xs transition-all active:scale-95 cursor-pointer">
+                                <i data-lucide="copy" class="w-3.5 h-3.5 text-pink-500"></i>
+                                <span>คัดลอกชื่อยา</span>
+                            </button>
+                            <button id="copyRxcuiBtn" type="button" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-bold bg-white hover:bg-teal-50 text-teal-700 border-2 border-teal-200 rounded-full shadow-2xs transition-all active:scale-95 cursor-pointer">
+                                <i data-lucide="hash" class="w-3.5 h-3.5 text-teal-500"></i>
+                                <span>คัดลอก RxCUI</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Modal Content Body -->
+                    <div class="px-6 py-5 max-h-[65vh] overflow-y-auto space-y-5 bg-kawaii-cream">
+                        <!-- Modal Loading -->
+                        <div id="modalLoading" class="py-10 flex flex-col items-center justify-center text-center">
+                            <div class="flex items-center gap-2.5 mb-3">
+                                <div class="w-4 h-7 rounded-full bg-pink-400 animate-pill-1"></div>
+                                <div class="w-4 h-7 rounded-full bg-teal-400 animate-pill-2"></div>
+                                <div class="w-4 h-7 rounded-full bg-purple-400 animate-pill-3"></div>
+                            </div>
+                            <p class="text-sm font-semibold text-kawaii-text">กำลังเปิดแฟ้มข้อมูลน้องยา... 🩺✨</p>
+                        </div>
+
+                        <!-- Modal Details Content -->
+                        <div id="modalContent" class="hidden space-y-5">
+                            <!-- Properties Summary -->
+                            <div class="bg-white rounded-2xl p-4 border-2 border-pink-100 shadow-2xs">
+                                <h4 class="text-xs font-bold uppercase tracking-wider text-pink-600 mb-3 flex items-center gap-1.5">
+                                    <span>🌸</span>
+                                    <span>คุณสมบัติพื้นฐาน (RxNorm Properties)</span>
+                                </h4>
+                                <dl class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+                                    <div class="bg-pink-50/50 p-3 rounded-xl border border-pink-100">
+                                        <dt class="text-xs text-kawaii-subtext">รหัสอ้างอิง (RxCUI)</dt>
+                                        <dd id="propRxcui" class="font-mono font-bold text-pink-700 mt-0.5">-</dd>
+                                    </div>
+                                    <div class="bg-teal-50/50 p-3 rounded-xl border border-teal-100">
+                                        <dt class="text-xs text-kawaii-subtext">ประเภทคำศัพท์ (Term Type)</dt>
+                                        <dd id="propTty" class="font-semibold text-teal-800 mt-0.5">-</dd>
+                                    </div>
+                                    <div class="sm:col-span-2 bg-purple-50/40 p-3 rounded-xl border border-purple-100">
+                                        <dt class="text-xs text-kawaii-subtext">ชื่อพ้อง / ชื่อเรียกอื่น (Synonym)</dt>
+                                        <dd id="propSynonym" class="font-mono text-kawaii-text text-xs sm:text-sm mt-0.5">-</dd>
+                                    </div>
+                                </dl>
+                            </div>
+
+                            <!-- Related Concepts Sections -->
+                            <div id="relatedSections" class="space-y-4">
+                                <!-- IN, BN, SCD, SBD sections injected here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal Footer -->
+                    <div class="bg-white px-6 py-3.5 border-t border-pink-100 flex justify-end">
+                        <button id="modalDoneBtn" type="button" class="px-6 py-2 bg-gradient-to-r from-pink-400 to-purple-400 hover:from-pink-500 hover:to-purple-500 text-white text-sm font-bold rounded-full shadow-sm transition-all active:scale-95 cursor-pointer">
+                            ปิดหน้าต่าง ✨
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cute Toast Notification for Copy Feedback -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+        <div class="bg-gradient-to-r from-pink-500 to-purple-500 text-white px-5 py-3 rounded-full shadow-lg border-2 border-white flex items-center gap-2 text-sm font-bold">
+            <span>✨</span>
+            <span id="toastMessage">คัดลอกแล้ว! ✨</span>
+        </div>
+    </div>
+
+    <!-- Cute Medical Disclaimer Footer -->
+    <footer class="relative z-10 bg-white/85 backdrop-blur-xs border-t-2 border-pink-100 mt-auto pb-24 sm:pb-24">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="bg-gradient-to-r from-pink-50/70 via-white to-teal-50/70 border-2 border-pink-100 rounded-2xl p-4 flex items-start gap-3">
+                <span class="text-xl shrink-0">🩺</span>
+                <div class="text-xs text-kawaii-subtext leading-relaxed">
+                    <strong class="text-kawaii-text font-bold">หมายเหตุทางการแพทย์ (Medical Disclaimer):</strong> 
+                    ข้อมูลยา รหัส RxCUI และการแนะนำการสะกดคำทั้งหมดดึงข้อมูลแบบเรียลไทม์จาก 
+                    <a href="https://lhncbc.nlm.nih.gov/RxNav/" target="_blank" rel="noopener noreferrer" class="text-pink-600 underline hover:text-pink-700 font-bold">National Library of Medicine (NLM) RxNorm REST API</a> 
+                    เพื่อใช้เป็นข้อมูลอ้างอิงเบื้องต้นทางเภสัชสารสนเทศและการศึกษาเท่านั้น ไม่สามารถใช้ทดแทนคำแนะนำ การวินิจฉัย หรือการสั่งจ่ายยาโดยแพทย์และเภสัชกรได้น้า 💕
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Walking Mascot: Dr. Pill-chan (น้องยาเดินเล่น) -->
+    <div id="walkingMascotContainer" class="fixed bottom-2 left-0 z-40 select-none pointer-events-none" style="transform: translateX(40px);">
+        <div class="relative flex flex-col items-center pointer-events-auto group">
+            <!-- Cute Clickable Speech Bubble -->
+            <div
+                id="mascotSpeechBubble"
+                onclick="cycleMascotTip()"
+                title="คลิกที่น้องยาเพื่อเปลี่ยนข้อความน่ารักๆ ✨"
+                class="mb-1.5 px-3.5 py-2 bg-white/95 backdrop-blur-xs border-2 border-pink-300 rounded-2xl shadow-kawaii text-xs font-bold text-kawaii-text max-w-[220px] sm:max-w-[260px] text-center cursor-pointer hover:scale-105 hover:border-pink-400 transition-all relative"
+            >
+                <span id="mascotSpeechText">สวัสดีจ้า! พิมพ์ชื่อยาผิดก็หาเจอ ลองคลิกน้องยาดูสิ 💊✨</span>
+                <!-- Speech bubble tail -->
+                <div class="w-3 h-3 bg-white border-r-2 border-b-2 border-pink-300 rotate-45 absolute -bottom-1.5 left-1/2 -translate-x-1/2"></div>
+            </div>
+
+            <!-- Walking Dr. Pill-chan Character -->
+            <div
+                id="walkingMascotCharacter"
+                onclick="cycleMascotTip()"
+                title="คลิกทักทายน้องยา (Dr. Pill-chan) 💕"
+                class="cursor-pointer transition-transform duration-300 hover:scale-110"
+            >
+                <div class="mascot-bobbing relative">
+                    <!-- Soft Ground Shadow -->
+                    <div class="w-11 h-2.5 bg-pink-300/45 rounded-full blur-[1px] mx-auto absolute -bottom-1 left-1/2 -translate-x-1/2"></div>
+                    <svg class="w-16 h-20 sm:w-20 sm:h-24 drop-shadow-sm" viewBox="0 0 80 92" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Swinging Left Leg -->
+                        <g class="mascot-leg-l">
+                            <path d="M33 68V79" stroke="#0D9488" stroke-width="4" stroke-linecap="round"/>
+                            <ellipse cx="34.5" cy="80.5" rx="5.5" ry="3.2" fill="#F472B6"/>
+                        </g>
+                        <!-- Swinging Right Leg -->
+                        <g class="mascot-leg-r">
+                            <path d="M47 68V79" stroke="#0D9488" stroke-width="4" stroke-linecap="round"/>
+                            <ellipse cx="48.5" cy="80.5" rx="5.5" ry="3.2" fill="#F472B6"/>
+                        </g>
+
+                        <!-- Swinging Back Arm (Left) -->
+                        <g class="mascot-arm-l">
+                            <path d="M22 46C15 48 13 53 16 56" stroke="#EC4899" stroke-width="3.5" stroke-linecap="round"/>
+                            <circle cx="16" cy="56" r="2.8" fill="#FBCFE8" stroke="#EC4899" stroke-width="1.5"/>
+                        </g>
+
+                        <!-- Pharmacist Cap -->
+                        <path d="M24 21L28 9H52L56 21H24Z" fill="#FFFFFF" stroke="#F472B6" stroke-width="2.5" stroke-linejoin="round"/>
+                        <path d="M40 12V18M37 15H43" stroke="#FB7185" stroke-width="2.5" stroke-linecap="round"/>
+
+                        <!-- Pill Body Top (Pastel Pink) -->
+                        <path d="M22 37C22 27.0589 30.0589 19 40 19C49.9411 19 58 27.0589 58 37V41H22V37Z" fill="#FF9EBB" stroke="#EC4899" stroke-width="2.5"/>
+
+                        <!-- Pill Body Bottom (Pastel Mint) -->
+                        <path d="M22 41H58V53C58 62.9411 49.9411 71 40 71C30.0589 71 22 62.9411 22 53V41Z" fill="#99F6E4" stroke="#14B8A6" stroke-width="2.5"/>
+
+                        <!-- Glossy Shine -->
+                        <path d="M28 28C29.5 25 32 23.5 35 23" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+
+                        <!-- Cute Blinking Eyes -->
+                        <g class="mascot-eyes">
+                            <circle cx="33" cy="35" r="3" fill="#4A3F55"/>
+                            <circle cx="47" cy="35" r="3" fill="#4A3F55"/>
+                            <circle cx="32.1" cy="33.8" r="1.1" fill="#FFFFFF"/>
+                            <circle cx="46.1" cy="33.8" r="1.1" fill="#FFFFFF"/>
+                        </g>
+
+                        <!-- Rosy Cheeks -->
+                        <ellipse cx="28.5" cy="39.5" rx="3.2" ry="1.9" fill="#F43F5E" opacity="0.5"/>
+                        <ellipse cx="51.5" cy="39.5" rx="3.2" ry="1.9" fill="#F43F5E" opacity="0.5"/>
+
+                        <!-- Happy Smile -->
+                        <path d="M36.5 39C37.5 41.2 42.5 41.2 43.5 39" stroke="#4A3F55" stroke-width="2.2" stroke-linecap="round"/>
+
+                        <!-- Swinging Front Arm (Right) -->
+                        <g class="mascot-arm-r">
+                            <path d="M58 46C65 48 67 53 64 56" stroke="#14B8A6" stroke-width="3.5" stroke-linecap="round"/>
+                            <circle cx="64" cy="56" r="2.8" fill="#CCFBF1" stroke="#14B8A6" stroke-width="1.5"/>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Logic -->
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // API Base URL
+        const RXNORM_BASE_URL = 'https://rxnav.nlm.nih.gov/REST';
+
+        // Cute Pastel Term Type (TTY) Badges & Descriptions
+        const TTY_LABELS = {
+            'IN': { code: 'IN', en: 'Ingredient', th: 'ตัวยาสำคัญ / ชื่อสามัญ', emoji: '🌿', color: 'bg-teal-100 text-teal-800 border-teal-200' },
+            'PIN': { code: 'PIN', en: 'Precise Ingredient', th: 'รูปแบบเกลือของตัวยา', emoji: '🧪', color: 'bg-emerald-100 text-emerald-800 border-emerald-200' },
+            'MIN': { code: 'MIN', en: 'Multiple Ingredients', th: 'สูตรยาผสมหลายตัวยา', emoji: '🌈', color: 'bg-cyan-100 text-cyan-800 border-cyan-200' },
+            'BN': { code: 'BN', en: 'Brand Name', th: 'ชื่อการค้า', emoji: '🏷️', color: 'bg-pink-100 text-pink-800 border-pink-200' },
+            'SCD': { code: 'SCD', en: 'Semantic Clinical Drug', th: 'ยาสามัญพร้อมความแรงและรูปแบบ', emoji: '💊', color: 'bg-purple-100 text-purple-800 border-purple-200' },
+            'SBD': { code: 'SBD', en: 'Semantic Branded Drug', th: 'ยาการค้าพร้อมความแรงและรูปแบบ', emoji: '🎀', color: 'bg-orange-100 text-orange-800 border-orange-200' },
+            'SCDC': { code: 'SCDC', en: 'Clinical Drug Component', th: 'ส่วนประกอบตัวยาและความแรง', emoji: '✨', color: 'bg-sky-100 text-sky-800 border-sky-200' },
+            'SCDF': { code: 'SCDF', en: 'Clinical Drug Form', th: 'ตัวยาและรูปแบบเภสัชภัณฑ์', emoji: '🧴', color: 'bg-indigo-100 text-indigo-800 border-indigo-200' },
+            'SBDF': { code: 'SBDF', en: 'Branded Drug Form', th: 'ชื่อการค้าและรูปแบบเภสัชภัณฑ์', emoji: '🧁', color: 'bg-rose-100 text-rose-800 border-rose-200' },
+            'GPCK': { code: 'GPCK', en: 'Generic Pack', th: 'ชุดยาสามัญ', emoji: '🎁', color: 'bg-amber-100 text-amber-800 border-amber-200' },
+            'BPCK': { code: 'BPCK', en: 'Brand Name Pack', th: 'ชุดยาการค้า', emoji: '💝', color: 'bg-fuchsia-100 text-fuchsia-800 border-fuchsia-200' }
+        };
+
+        // DOM Elements
+        const searchInput = document.getElementById('searchInput');
+        const clearBtn = document.getElementById('clearBtn');
+        const searchBtn = document.getElementById('searchBtn');
+        const sampleChips = document.querySelectorAll('.sample-chip');
+
+        const initialState = document.getElementById('initialState');
+        const loadingState = document.getElementById('loadingState');
+        const errorState = document.getElementById('errorState');
+        const errorMessage = document.getElementById('errorMessage');
+        const retryBtn = document.getElementById('retryBtn');
+        const resultsContainer = document.getElementById('resultsContainer');
+
+        const spellingBanner = document.getElementById('spellingBanner');
+        const spellingChips = document.getElementById('spellingChips');
+        const exactCountBadge = document.getElementById('exactCountBadge');
+        const exactDrugsList = document.getElementById('exactDrugsList');
+        const approxCountBadge = document.getElementById('approxCountBadge');
+        const approxDrugsList = document.getElementById('approxDrugsList');
+
+        // Modal Elements
+        const drugModal = document.getElementById('drugModal');
+        const modalBackdrop = document.getElementById('modalBackdrop');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const modalDoneBtn = document.getElementById('modalDoneBtn');
+        const modalTtyBadge = document.getElementById('modalTtyBadge');
+        const modalRxcui = document.getElementById('modalRxcui');
+        const modalDrugName = document.getElementById('modalDrugName');
+        const copyNameBtn = document.getElementById('copyNameBtn');
+        const copyRxcuiBtn = document.getElementById('copyRxcuiBtn');
+        const modalLoading = document.getElementById('modalLoading');
+        const modalContent = document.getElementById('modalContent');
+        const propRxcui = document.getElementById('propRxcui');
+        const propTty = document.getElementById('propTty');
+        const propSynonym = document.getElementById('propSynonym');
+        const relatedSections = document.getElementById('relatedSections');
+
+        // State Variables
+        let debounceTimer = null;
+        let currentQuery = '';
+        let activeAbortController = null;
+        let selectedDrugForCopy = { name: '', rxcui: '' };
+
+        // Utility: Escape HTML to prevent XSS
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        // Utility: Get TTY Metadata
+        function getTtyInfo(tty) {
+            return TTY_LABELS[tty] || {
+                code: tty || 'N/A',
+                en: tty || 'Drug Concept',
+                th: 'กลุ่มข้อมูลยา',
+                emoji: '💊',
+                color: 'bg-pink-100 text-pink-800 border-pink-200'
+            };
+        }
+
+        // Utility: Show Toast Notification
+        let toastTimeout = null;
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toastMessage');
+            toastMsg.textContent = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            
+            if (toastTimeout) clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 2500);
+        }
+
+        // Utility: Copy to Clipboard (using execCommand fallback for iFrame safety)
+        function copyToClipboard(text, successMsg) {
+            if (!text) return;
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                showToast(successMsg);
+            } catch (err) {
+                console.error('Copy failed:', err);
+                showToast('ไม่สามารถคัดลอกข้อความได้ 🥺');
+            }
+            document.body.removeChild(textarea);
+        }
+
+        // UI State Switcher
+        function setViewState(state) {
+            initialState.classList.add('hidden');
+            loadingState.classList.add('hidden');
+            errorState.classList.add('hidden');
+            resultsContainer.classList.add('hidden');
+
+            if (state === 'initial') initialState.classList.remove('hidden');
+            if (state === 'loading') loadingState.classList.remove('hidden');
+            if (state === 'error') errorState.classList.remove('hidden');
+            if (state === 'results') resultsContainer.classList.remove('hidden');
+        }
+
+        // Main Search Execution
+        async function performSearch(query) {
+            const trimmed = query.trim();
+            currentQuery = trimmed;
+
+            if (!trimmed) {
+                clearBtn.classList.add('hidden');
+                setViewState('initial');
+                return;
+            }
+
+            clearBtn.classList.remove('hidden');
+
+            // Cancel previous in-flight request if user keeps typing
+            if (activeAbortController) {
+                activeAbortController.abort();
+            }
+            activeAbortController = new AbortController();
+            const signal = activeAbortController.signal;
+
+            setViewState('loading');
+
+            const encodedQuery = encodeURIComponent(trimmed);
+
+            try {
+                // Fetch all 3 endpoints concurrently (maxEntries=15 for approximateTerm)
+                const [spellRes, approxRes, drugsRes] = await Promise.all([
+                    fetch(`${RXNORM_BASE_URL}/spellingsuggestions.json?name=${encodedQuery}`, { signal }),
+                    fetch(`${RXNORM_BASE_URL}/approximateTerm.json?term=${encodedQuery}&maxEntries=15`, { signal }),
+                    fetch(`${RXNORM_BASE_URL}/drugs.json?name=${encodedQuery}`, { signal })
+                ]);
+
+                if (!spellRes.ok || !approxRes.ok || !drugsRes.ok) {
+                    throw new Error(`HTTP Error: ${spellRes.status} / ${approxRes.status} / ${drugsRes.status}`);
+                }
+
+                const [spellData, approxData, drugsData] = await Promise.all([
+                    spellRes.json(),
+                    approxRes.json(),
+                    drugsRes.json()
+                ]);
+
+                renderResults(trimmed, spellData, approxData, drugsData);
+                setViewState('results');
+
+            } catch (err) {
+                if (err.name === 'AbortError') {
+                    return;
+                }
+                console.error('RxNorm Search Error:', err);
+                errorMessage.textContent = 'ไม่สามารถเชื่อมต่อกับ NLM RxNorm API ได้ในขณะนี้ ลองตรวจสอบอินเทอร์เน็ตแล้วกดลองใหม่อีกครั้งนะ';
+                setViewState('error');
+            }
+        }
+
+        // Render Search Results
+        function renderResults(query, spellData, approxData, drugsData) {
+            // 1. Render Spelling Suggestions ("Did you mean")
+            const suggestions = spellData?.suggestionGroup?.suggestionList?.suggestion || [];
+            const filteredSuggestions = suggestions.filter(s => s.toLowerCase() !== query.toLowerCase());
+
+            if (filteredSuggestions.length > 0) {
+                spellingBanner.classList.remove('hidden');
+                spellingChips.innerHTML = filteredSuggestions.map(word => `
+                    <button 
+                        type="button" 
+                        onclick="selectSuggestion('${escapeHtml(word)}')"
+                        class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white hover:bg-amber-400 text-amber-900 hover:text-white font-mono font-bold text-sm border-2 border-amber-300 shadow-2xs hover:-translate-y-0.5 transition-all cursor-pointer active:scale-95"
+                    >
+                        <span>${escapeHtml(word)}</span>
+                        <span>✨</span>
+                    </button>
+                `).join('');
+            } else {
+                spellingBanner.classList.add('hidden');
+                spellingChips.innerHTML = '';
+            }
+
+            // 2. Render Exact / Grouped Drugs (drugs.json)
+            const conceptGroups = drugsData?.drugGroup?.conceptGroup || [];
+            const validGroups = conceptGroups.filter(g => Array.isArray(g.conceptProperties) && g.conceptProperties.length > 0);
+
+            let totalExactItems = 0;
+            validGroups.forEach(g => totalExactItems += g.conceptProperties.length);
+            exactCountBadge.textContent = `${totalExactItems} รายการ`;
+
+            if (validGroups.length === 0) {
+                exactDrugsList.innerHTML = `
+                    <div class="text-center py-8 px-4 bg-pink-50/40 rounded-2xl border-2 border-dashed border-pink-200">
+                        <div class="text-3xl mb-2">🔍</div>
+                        <p class="text-sm font-bold text-kawaii-text">ยังไม่พบรายการยาที่สะกดตรงกับ "<span class="font-mono text-pink-600">${escapeHtml(query)}</span>" เป๊ะๆ</p>
+                        <p class="text-xs text-kawaii-subtext mt-1.5">
+                            ${filteredSuggestions.length > 0 
+                                ? 'ลองคลิกเลือกคำแนะนำที่ถูกต้องในกล่องสีเหลืองด้านบนได้เลยน้า 💡' 
+                                : 'ลองดูรายการที่ใกล้เคียงทางด้านขวา หรือตรวจสอบตัวสะกดอีกทีนะ 💕'}
+                        </p>
+                    </div>
+                `;
+            } else {
+                exactDrugsList.innerHTML = validGroups.map(group => {
+                    const ttyInfo = getTtyInfo(group.tty);
+                    const itemsHtml = group.conceptProperties.map(drug => `
+                        <div 
+                            onclick="openDrugDetails('${escapeHtml(drug.rxcui)}', '${escapeHtml(drug.name)}', '${escapeHtml(drug.tty)}')"
+                            class="group p-4 rounded-2xl border-2 border-pink-100/90 hover:border-pink-300 bg-white hover:bg-pink-50/30 hover:-translate-y-0.5 transition-all cursor-pointer flex items-start justify-between gap-3 shadow-2xs hover:shadow-kawaii"
+                        >
+                            <div class="space-y-1.5">
+                                <div class="font-mono font-bold text-sm sm:text-base text-kawaii-text group-hover:text-pink-600 transition-colors">
+                                    ${escapeHtml(drug.name)}
+                                </div>
+                                <div class="flex flex-wrap items-center gap-2 text-xs text-kawaii-subtext">
+                                    <span class="font-mono bg-purple-50 px-2.5 py-0.5 rounded-full text-purple-700 border border-purple-200">
+                                        RxCUI: <strong>${escapeHtml(drug.rxcui)}</strong>
+                                    </span>
+                                    ${drug.synonym ? `<span class="truncate max-w-xs text-pink-400">(${escapeHtml(drug.synonym)})</span>` : ''}
+                                </div>
+                            </div>
+                            <div class="shrink-0 self-center w-8 h-8 rounded-full bg-pink-50 group-hover:bg-pink-400 text-pink-400 group-hover:text-white flex items-center justify-center transition-all">
+                                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                            </div>
+                        </div>
+                    `).join('');
+
+                    return `
+                        <div class="space-y-3">
+                            <div class="flex flex-wrap items-center justify-between gap-2 pb-1.5 border-b-2 border-pink-50">
+                                <div class="flex items-center gap-2">
+                                    <span class="px-2.5 py-0.5 text-xs font-bold rounded-full border ${ttyInfo.color}">
+                                        ${ttyInfo.emoji} ${escapeHtml(ttyInfo.code)}
+                                    </span>
+                                    <span class="text-xs sm:text-sm font-bold text-kawaii-text">
+                                        ${escapeHtml(ttyInfo.en)}
+                                    </span>
+                                </div>
+                                <span class="text-xs font-medium text-kawaii-subtext">${escapeHtml(ttyInfo.th)}</span>
+                            </div>
+                            <div class="space-y-2.5">
+                                ${itemsHtml}
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            // 3. Render Approximate Matches (approximateTerm.json)
+            const candidates = approxData?.approximateGroup?.candidate || [];
+            const uniqueCandidatesMap = new Map();
+            candidates.forEach(item => {
+                if (!item.rxcui) return;
+                const existing = uniqueCandidatesMap.get(item.rxcui);
+                if (!existing || Number(item.score) > Number(existing.score)) {
+                    uniqueCandidatesMap.set(item.rxcui, item);
+                }
+            });
+            const uniqueCandidates = Array.from(uniqueCandidatesMap.values());
+
+            approxCountBadge.textContent = `${uniqueCandidates.length} รายการ`;
+
+            if (uniqueCandidates.length === 0) {
+                approxDrugsList.innerHTML = `
+                    <div class="p-8 text-center text-sm text-kawaii-subtext">
+                        ไม่พบคำศัพท์ที่ใกล้เคียงในฐานข้อมูล 🥺
+                    </div>
+                `;
+            } else {
+                approxDrugsList.innerHTML = uniqueCandidates.map(cand => {
+                    const score = Math.min(100, Math.max(0, Math.round(Number(cand.score) || 0)));
+                    const displayName = cand.name || `RxCUI #${cand.rxcui}`;
+                    
+                    // Cute Heart/Star meter styling
+                    let badgeStyle = 'bg-amber-100 text-amber-800 border-amber-200';
+                    let heartIcon = '💛';
+                    if (score >= 80) {
+                        badgeStyle = 'bg-pink-100 text-pink-700 border-pink-200';
+                        heartIcon = '💖';
+                    } else if (score >= 50) {
+                        badgeStyle = 'bg-teal-100 text-teal-800 border-teal-200';
+                        heartIcon = '💚';
+                    }
+
+                    return `
+                        <div 
+                            onclick="openDrugDetails('${escapeHtml(cand.rxcui)}', '${escapeHtml(displayName)}', 'APPROX')"
+                            class="p-4 hover:bg-teal-50/40 transition-colors cursor-pointer flex items-center justify-between gap-3 group"
+                        >
+                            <div class="min-w-0 flex-1">
+                                <p class="font-mono font-bold text-sm text-kawaii-text group-hover:text-teal-700 truncate">
+                                    ${escapeHtml(displayName)}
+                                </p>
+                                <div class="flex items-center gap-2 mt-1 text-xs text-kawaii-subtext">
+                                    <span class="font-mono bg-slate-100 px-2 py-0.5 rounded-full">RxCUI: <strong class="text-kawaii-text">${escapeHtml(cand.rxcui)}</strong></span>
+                                    <span>•</span>
+                                    <span>อันดับ #${escapeHtml(cand.rank || '-')}</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-2 shrink-0">
+                                <span class="px-3 py-1 rounded-full text-xs font-bold border ${badgeStyle}" title="ความใกล้เคียง (Similarity Score)">
+                                    ${score}% Match ${heartIcon}
+                                </span>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            lucide.createIcons();
+        }
+
+        // Handler when user clicks a "Did you mean" suggestion chip
+        window.selectSuggestion = function(suggestedWord) {
+            searchInput.value = suggestedWord;
+            performSearch(suggestedWord);
+        };
+
+        // Open Drug Details Modal & Fetch Properties + Related Drugs
+        window.openDrugDetails = async function(rxcui, fallbackName, fallbackTty) {
+            drugModal.classList.remove('hidden');
+            modalLoading.classList.remove('hidden');
+            modalContent.classList.add('hidden');
+
+            modalRxcui.textContent = rxcui;
+            modalDrugName.textContent = fallbackName || `RxCUI ${rxcui}`;
+            modalTtyBadge.textContent = fallbackTty || 'RxNorm';
+            selectedDrugForCopy = { name: fallbackName, rxcui: rxcui };
+
+            try {
+                const [propsRes, relatedRes] = await Promise.all([
+                    fetch(`${RXNORM_BASE_URL}/rxcui/${encodeURIComponent(rxcui)}/properties.json`),
+                    fetch(`${RXNORM_BASE_URL}/rxcui/${encodeURIComponent(rxcui)}/related.json?tty=IN+BN+SCD+SBD`)
+                ]);
+
+                if (!propsRes.ok || !relatedRes.ok) {
+                    throw new Error('Failed to fetch drug details');
+                }
+
+                const [propsData, relatedData] = await Promise.all([
+                    propsRes.json(),
+                    relatedRes.json()
+                ]);
+
+                const props = propsData?.properties || {};
+                const finalName = props.name || fallbackName || `RxCUI ${rxcui}`;
+                const finalTty = props.tty || fallbackTty || '-';
+                const ttyInfo = getTtyInfo(finalTty);
+
+                modalDrugName.textContent = finalName;
+                modalTtyBadge.textContent = `${ttyInfo.emoji} ${finalTty} • ${ttyInfo.en}`;
+                selectedDrugForCopy = { name: finalName, rxcui: rxcui };
+
+                propRxcui.textContent = props.rxcui || rxcui;
+                propTty.textContent = `${finalTty} (${ttyInfo.en} - ${ttyInfo.th})`;
+                propSynonym.textContent = props.synonym || 'ไม่มีข้อมูลชื่อพ้องเพิ่มเติม';
+
+                const relatedGroups = relatedData?.relatedGroup?.conceptGroup || [];
+                const order = ['IN', 'BN', 'SCD', 'SBD'];
+                
+                const sortedGroups = order
+                    .map(ttyCode => relatedGroups.find(g => g.tty === ttyCode))
+                    .filter(g => g && Array.isArray(g.conceptProperties) && g.conceptProperties.length > 0);
+
+                if (sortedGroups.length === 0) {
+                    relatedSections.innerHTML = `
+                        <div class="text-center py-6 px-4 bg-white rounded-2xl border-2 border-dashed border-pink-200 text-xs text-kawaii-subtext">
+                            ไม่พบข้อมูลความสัมพันธ์เพิ่มเติมในกลุ่ม IN, BN, SCD หรือ SBD สำหรับรหัสนี้ 🌸
+                        </div>
+                    `;
+                } else {
+                    relatedSections.innerHTML = sortedGroups.map(group => {
+                        const info = getTtyInfo(group.tty);
+                        const concepts = group.conceptProperties;
+                        return `
+                            <div class="border-2 border-pink-100 rounded-2xl overflow-hidden bg-white shadow-2xs">
+                                <div class="bg-pink-50/50 px-4 py-2.5 border-b border-pink-100 flex items-center justify-between">
+                                    <div class="flex items-center gap-2">
+                                        <span class="px-2.5 py-0.5 text-xs font-bold rounded-full border ${info.color}">${info.emoji} ${escapeHtml(info.code)}</span>
+                                        <span class="text-xs font-bold text-kawaii-text">${escapeHtml(info.en)} (${escapeHtml(info.th)})</span>
+                                    </div>
+                                    <span class="text-xs font-bold text-pink-600">${concepts.length} รายการ</span>
+                                </div>
+                                <div class="divide-y divide-pink-50 max-h-48 overflow-y-auto">
+                                    ${concepts.map(c => `
+                                        <div class="px-4 py-2.5 flex items-center justify-between gap-2 hover:bg-pink-50/30 text-xs sm:text-sm">
+                                            <span class="font-mono font-medium text-kawaii-text">${escapeHtml(c.name)}</span>
+                                            <div class="flex items-center gap-2 shrink-0">
+                                                <span class="font-mono text-xs text-purple-700 bg-purple-50 border border-purple-200 px-2.5 py-0.5 rounded-full">
+                                                    ${escapeHtml(c.rxcui)}
+                                                </span>
+                                                <button 
+                                                    type="button" 
+                                                    onclick="openDrugDetails('${escapeHtml(c.rxcui)}', '${escapeHtml(c.name)}', '${escapeHtml(c.tty)}')"
+                                                    title="ดูรายละเอียดรายการนี้"
+                                                    class="p-1.5 text-pink-500 hover:bg-pink-100 rounded-full transition-colors cursor-pointer"
+                                                >
+                                                    <i data-lucide="arrow-right-circle" class="w-4 h-4"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+                }
+
+                lucide.createIcons();
+                modalLoading.classList.add('hidden');
+                modalContent.classList.remove('hidden');
+
+            } catch (err) {
+                console.error('Modal Detail Fetch Error:', err);
+                modalLoading.classList.add('hidden');
+                modalContent.classList.remove('hidden');
+                relatedSections.innerHTML = `
+                    <div class="bg-rose-50 border-2 border-rose-200 text-rose-700 text-xs p-4 rounded-2xl text-center font-semibold">
+                        เกิดข้อผิดพลาดในการโหลดข้อมูลเชิงลึกของยานี้ ลองใหม่อีกครั้งนะ 🥺
+                    </div>
+                `;
+            }
+        };
+
+        // Close Modal Helper
+        function closeModal() {
+            drugModal.classList.add('hidden');
+        }
+
+        // Event Listeners
+        searchInput.addEventListener('input', (e) => {
+            const val = e.target.value;
+            if (val.trim().length > 0) {
+                clearBtn.classList.remove('hidden');
+            } else {
+                clearBtn.classList.add('hidden');
+            }
+
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                performSearch(val);
+            }, 300);
+        });
+
+        searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                clearTimeout(debounceTimer);
+                performSearch(searchInput.value);
+            }
+        });
+
+        searchBtn.addEventListener('click', () => {
+            clearTimeout(debounceTimer);
+            performSearch(searchInput.value);
+        });
+
+        clearBtn.addEventListener('click', () => {
+            clearTimeout(debounceTimer);
+            if (activeAbortController) activeAbortController.abort();
+            searchInput.value = '';
+            clearBtn.classList.add('hidden');
+            searchInput.focus();
+            setViewState('initial');
+        });
+
+        retryBtn.addEventListener('click', () => {
+            performSearch(searchInput.value);
+        });
+
+        sampleChips.forEach(chip => {
+            chip.addEventListener('click', () => {
+                const sampleTerm = chip.getAttribute('data-sample');
+                searchInput.value = sampleTerm;
+                performSearch(sampleTerm);
+            });
+        });
+
+        // Modal Event Listeners
+        closeModalBtn.addEventListener('click', closeModal);
+        modalDoneBtn.addEventListener('click', closeModal);
+        modalBackdrop.addEventListener('click', closeModal);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !drugModal.classList.contains('hidden')) {
+                closeModal();
+            }
+        });
+
+        copyNameBtn.addEventListener('click', () => {
+            copyToClipboard(selectedDrugForCopy.name, `คัดลอกชื่อยา "${selectedDrugForCopy.name}" แล้ว! ✨`);
+        });
+
+        copyRxcuiBtn.addEventListener('click', () => {
+            copyToClipboard(selectedDrugForCopy.rxcui, `คัดลอกรหัส RxCUI: ${selectedDrugForCopy.rxcui} แล้ว! ✨`);
+        });
+
+        // ==========================================
+        // Walking Mascot (Dr. Pill-chan) Logic
+        // ==========================================
+        const walkingMascotContainer = document.getElementById('walkingMascotContainer');
+        const walkingMascotCharacter = document.getElementById('walkingMascotCharacter');
+        const mascotSpeechText = document.getElementById('mascotSpeechText');
+        const toggleMascotBtn = document.getElementById('toggleMascotBtn');
+        const toggleMascotText = document.getElementById('toggleMascotText');
+        const toggleMascotTextMobile = document.getElementById('toggleMascotTextMobile');
+
+        const MASCOT_TIPS = [
+            'สวัสดีจ้า! พิมพ์ชื่อยาผิดก็หาเจอ ลองคลิกน้องยาดูสิ 💊✨',
+            'รู้ไหม? กดคลิกที่ชื่อยาเพื่อดูรหัส RxCUI และชื่อการค้าได้นะ 🌸',
+            'กินยาให้ตรงเวลาและดื่มน้ำตามมากๆ น้า น้องยาเป็นห่วง 💕',
+            'ลองกดปุ่มลูกอมตัวอย่างด้านบนเพื่อทดสอบระบบสะกดคำสิ 🍬',
+            'ยาปฏิชีวนะ (Antibiotics) ต้องทานให้ครบตามแพทย์สั่งนะจ๊ะ 🩺',
+            'ถ้าไม่แน่ใจเรื่องการใช้ยา อย่าลืมปรึกษาเภสัชกรใกล้บ้านน้า 💖'
+        ];
+
+        let mascotTipIndex = 0;
+        let mascotEnabled = true;
+        let mascotX = 30;
+        let mascotDirection = 1; // 1 = walking right, -1 = walking left
+        let mascotPaused = false;
+        let mascotAnimFrame = null;
+
+        window.cycleMascotTip = function() {
+            mascotTipIndex = (mascotTipIndex + 1) % MASCOT_TIPS.length;
+            mascotSpeechText.textContent = MASCOT_TIPS[mascotTipIndex];
+        };
+
+        // Auto-cycle mascot speech bubbles gently every 9 seconds
+        setInterval(() => {
+            if (mascotEnabled && !mascotPaused) {
+                window.cycleMascotTip();
+            }
+        }, 9000);
+
+        // Pause walking when hovering over the mascot so it is easy to click
+        walkingMascotContainer.addEventListener('mouseenter', () => {
+            mascotPaused = true;
+        });
+        walkingMascotContainer.addEventListener('mouseleave', () => {
+            mascotPaused = false;
+        });
+
+        // Toggle mascot visibility
+        toggleMascotBtn.addEventListener('click', () => {
+            mascotEnabled = !mascotEnabled;
+            if (mascotEnabled) {
+                walkingMascotContainer.classList.remove('hidden');
+                toggleMascotText.textContent = 'น้องยาเดินเล่น: เปิด';
+                toggleMascotTextMobile.textContent = 'เปิด';
+            } else {
+                walkingMascotContainer.classList.add('hidden');
+                toggleMascotText.textContent = 'น้องยาเดินเล่น: ปิด';
+                toggleMascotTextMobile.textContent = 'ปิด';
+            }
+        });
+
+        // Smooth animation loop for walking across the viewport
+        function animateWalkingMascot() {
+            if (mascotEnabled && !mascotPaused) {
+                const containerWidth = walkingMascotContainer.offsetWidth || 160;
+                const maxBound = Math.max(20, window.innerWidth - containerWidth - 20);
+                const speed = 0.65; // gentle, cute walking pace
+
+                mascotX += speed * mascotDirection;
+
+                if (mascotX >= maxBound) {
+                    mascotX = maxBound;
+                    mascotDirection = -1;
+                    walkingMascotCharacter.style.transform = 'scaleX(-1)';
+                } else if (mascotX <= 16) {
+                    mascotX = 16;
+                    mascotDirection = 1;
+                    walkingMascotCharacter.style.transform = 'scaleX(1)';
+                }
+
+                walkingMascotContainer.style.transform = `translateX(${mascotX}px)`;
+            }
+            mascotAnimFrame = requestAnimationFrame(animateWalkingMascot);
+        }
+
+        // Start mascot walk loop
+        animateWalkingMascot();
+    </script>
+</body>
+</html>
